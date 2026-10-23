@@ -1,0 +1,29 @@
+{
+    "hryvinskyi_mcp_activity_call": {
+        "column": {
+            "activity_id": true,
+            "occurred_at_ms": true,
+            "ability": true,
+            "client_name": true,
+            "client_version": true,
+            "transport": true,
+            "source": true,
+            "source_reference": true,
+            "access": true,
+            "acl_resources": true,
+            "outcome": true,
+            "denial_reason": true,
+            "message": true,
+            "arguments": true,
+            "result": true,
+            "is_truncated": true
+        },
+        "index": {
+            "HRYVINSKYI_MCP_ACTIVITY_CALL_OCCURRED_AT_MS": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "HRYVINSKYI_MCP_ACTIVITY_CALL_ACTIVITY_ID": true
+        }
+    }
+}

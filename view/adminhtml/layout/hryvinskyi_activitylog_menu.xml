@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+-->
+<!-- The MCP Server page in the Activity Log menu -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="hryvinskyi.activity.log.menu">
+            <arguments>
+                <argument name="items" xsi:type="array">
+                    <item name="mcp_activity" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">MCP Calls</item>
+                        <item name="route" xsi:type="string">hryvinskyi_activitylog/activity/index</item>
+                        <item name="route_params" xsi:type="array">
+                            <item name="_query" xsi:type="array">
+                                <item name="channel" xsi:type="string">mcp</item>
+                            </item>
+                        </item>
+                        <item name="resource" xsi:type="string">Hryvinskyi_ActivityLog::view</item>
+                        <item name="sort_order" xsi:type="number">35</item>
+                    </item>
+                    <item name="mcp_server" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">MCP Server</item>
+                        <item name="route" xsi:type="string">hryvinskyi_mcp/server/index</item>
+                        <item name="resource" xsi:type="string">Hryvinskyi_McpServer::view</item>
+                        <item name="sort_order" xsi:type="number">40</item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,83 @@
+<?php
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+
+declare(strict_types=1);
+
+use Hryvinskyi\McpServerActivityLog\ViewModel\McpCallPanel;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Element\Template;
+
+/**
+ * The MCP call of an activity
+ *
+ * @var Template $block
+ * @var Escaper $escaper
+ */
+$panel = $block->getData('panel');
+$call = $panel instanceof McpCallPanel ? $panel->call() : null;
+if ($call === null) {
+    return;
+}
+$refused = in_array($call['outcome'], ['denied', 'needs_confirmation'], true);
+$client = trim($call['clientName'] . ' ' . $call['clientVersion']);
+?>
+<section class="mcp-panel">
+    <h2 class="mcp-panel__title"><?= $escaper->escapeHtml(__('MCP call')) ?></h2>
+    <dl class="mcp-panel__facts">
+        <div><dt><?= $escaper->escapeHtml(__('Client')) ?></dt>
+            <dd><?= $escaper->escapeHtml($client === '' ? __('Unnamed client') : $client) ?></dd></div>
+        <div><dt><?= $escaper->escapeHtml(__('Transport')) ?></dt>
+            <dd><?= $escaper->escapeHtml($call['transport']) ?></dd></div>
+        <div><dt><?= $escaper->escapeHtml(__('Ability')) ?></dt>
+            <dd><a href="<?= $escaper->escapeUrl($panel->serverPageUrl()) ?>">
+                <?= $escaper->escapeHtml($call['ability']) ?></a></dd></div>
+        <?php if ($call['source'] !== null): ?>
+            <div><dt><?= $escaper->escapeHtml(__('Source')) ?></dt>
+                <dd><?= $escaper->escapeHtml($call['source']) ?>
+                    <?php if ($call['sourceReference'] !== null): ?>
+                        <code><?= $escaper->escapeHtml($call['sourceReference']) ?></code>
+                    <?php endif; ?></dd></div>
+        <?php endif; ?>
+        <?php if ($call['access'] !== null): ?>
+            <div><dt><?= $escaper->escapeHtml(__('Access')) ?></dt>
+                <dd><?= $escaper->escapeHtml($call['access']) ?></dd></div>
+        <?php endif; ?>
+        <?php if ($call['aclResources'] !== []): ?>
+            <div><dt><?= $escaper->escapeHtml(__('Required ACL')) ?></dt>
+                <dd><?php foreach ($call['aclResources'] as $resource): ?>
+                    <code class="mcp-panel__acl"><?= $escaper->escapeHtml($resource) ?></code>
+                <?php endforeach; ?></dd></div>
+        <?php endif; ?>
+    </dl>
+    <?php if ($refused): ?>
+        <div class="message message-warning mcp-panel__reason">
+            <?= $escaper->escapeHtml($panel->reasonText($call['denialReason'])) ?>
+        </div>
+    <?php elseif ($call['outcome'] === 'failed' && $call['message'] !== null): ?>
+        <div class="message message-error mcp-panel__reason"><?= $escaper->escapeHtml($call['message']) ?></div>
+    <?php endif; ?>
+    <?php if ($call['arguments'] !== null): ?>
+        <details class="mcp-panel__payload" open>
+            <summary><?= $escaper->escapeHtml(__('Arguments')) ?></summary>
+            <pre><?= $escaper->escapeHtml($panel->readable($call['arguments'])) ?></pre>
+        </details>
+    <?php endif; ?>
+    <?php if ($call['result'] !== null): ?>
+        <details class="mcp-panel__payload">
+            <summary><?= $escaper->escapeHtml(__('Result')) ?></summary>
+            <pre><?= $escaper->escapeHtml($panel->readable($call['result'])) ?></pre>
+        </details>
+    <?php endif; ?>
+    <?php if ($call['truncated']): ?>
+        <p class="mcp-panel__note">
+            <?= $escaper->escapeHtml(__('The arguments or the result were cut to the size the journal keeps.')) ?>
+        </p>
+    <?php endif; ?>
+    <p class="mcp-panel__note">
+        <?= $escaper->escapeHtml(__('Secrets in the arguments and the result were masked before they were stored.')) ?>
+    </p>
+</section>

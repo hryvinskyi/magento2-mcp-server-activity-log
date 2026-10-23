@@ -1,0 +1,61 @@
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+
+/* The MCP call of an activity, on the activity's page */
+.mcp-panel__title {
+    margin: 0 0 1rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+.mcp-panel__facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+    gap: 0.8rem 2.4rem;
+    margin: 0 0 1.2rem;
+}
+
+.mcp-panel__facts dt {
+    color: #6f6f6f;
+}
+
+.mcp-panel__facts dd {
+    margin: 0.2rem 0 0;
+    overflow-wrap: anywhere;
+}
+
+.mcp-panel__acl {
+    display: inline-block;
+    margin: 0 0.4rem 0.4rem 0;
+}
+
+.mcp-panel__payload {
+    margin: 0 0 1rem;
+}
+
+.mcp-panel__payload summary {
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.mcp-panel__payload pre {
+    max-height: 48rem;
+    margin: 0.6rem 0 0;
+    padding: 1rem;
+    overflow: auto;
+    border: 1px solid #e3e3e3;
+    background: #f8f8f8;
+    font-size: 1.2rem;
+}
+
+.mcp-panel__note {
+    color: #6f6f6f;
+}
+
+/* The clients line on the MCP Server page */
+.mcp-recent-clients a {
+    margin-left: 0.8rem;
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2026. Volodymyr Hryvinskyi. All rights reserved.
+ * Author: Volodymyr Hryvinskyi <volodymyr@hryvinskyi.com>
+ * GitHub: https://github.com/hryvinskyi
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Every MCP call is recorded: its activity, its detail, and the operation its ability's changes join -->
+    <type name="Hryvinskyi\McpServer\Model\AbilityInvoker">
+        <arguments>
+            <argument name="listeners" xsi:type="array">
+                <item name="activity_log" xsi:type="object">Hryvinskyi\McpServerActivityLog\Model\RecordInvocation</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- While a call runs, what it does is its caller's, via its client: asked before every other resolver -->
+    <type name="Hryvinskyi\ActivityLog\Model\Actor\ActorContext">
+        <arguments>
+            <argument name="resolvers" xsi:type="array">
+                <item name="mcp_call" xsi:type="object" sortOrder="5">Hryvinskyi\McpServerActivityLog\Model\CallsInProgress</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- The MCP channel of the activity log -->
+    <virtualType name="Hryvinskyi\McpServerActivityLog\Model\Channel\McpChannel" type="Hryvinskyi\ActivityLog\Model\Channel\Channel">
+        <arguments>
+            <argument name="code" xsi:type="const">Hryvinskyi\McpServerActivityLog\Model\McpChannel::CODE</argument>
+            <argument name="label" xsi:type="string">MCP</argument>
+            <argument name="chartColor" xsi:type="string">#AA3377</argument>
+            <argument name="badgeBackground" xsi:type="string">#F5E1EC</argument>
+            <argument name="badgeForeground" xsi:type="string">#7A2456</argument>
+            <argument name="retentionConfigPath" xsi:type="const">Hryvinskyi\McpServerActivityLog\Model\McpChannel::XML_PATH_RETENTION_DAYS</argument>
+        </arguments>
+    </virtualType>
+    <type name="Hryvinskyi\ActivityLog\Model\Channel\ChannelPool">
+        <arguments>
+            <argument name="channels" xsi:type="array">
+                <item name="mcp" xsi:type="object" sortOrder="40">Hryvinskyi\McpServerActivityLog\Model\Channel\McpChannel</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Hryvinskyi\ActivityLog\Model\Search\Detail\DetailProviderPool">
+        <arguments>
+            <argument name="detailProviders" xsi:type="array">
+                <item name="mcp" xsi:type="object">Hryvinskyi\McpServerActivityLog\Model\Search\McpCallDetails</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Hryvinskyi\ActivityLog\Model\Dashboard\WidgetPool">
+        <arguments>
+            <argument name="widgets" xsi:type="array">
+                <item name="mcp_top_abilities" xsi:type="object" sortOrder="50">Hryvinskyi\McpServerActivityLog\Model\Dashboard\TopAbilitiesWidget</item>
+                <item name="mcp_denied_calls" xsi:type="object" sortOrder="60">Hryvinskyi\McpServerActivityLog\Model\Dashboard\DeniedCallsWidget</item>
+            </argument>
+        </arguments>
+    </type>
+</config>
