@@ -12,6 +12,7 @@
 "Read-only mode is on, and the ability does not only read.","Read-only mode is on, and the ability does not only read."
 "The ability is open to anyone, and Expose Anonymous Abilities is off.","The ability is open to anyone, and Expose Anonymous Abilities is off."
 "An argument guard refused the arguments.","An argument guard refused the arguments."
+"The ability belongs to a section that is switched off.","The ability belongs to a section that is switched off."
 "The ability needs a confirmed call; the client was asked to confirm.","The ability needs a confirmed call; the client was asked to confirm."
 "Refused by the rule ""%1"".","Refused by the rule ""%1""."
 "MCP call","MCP call"

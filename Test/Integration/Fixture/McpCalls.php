@@ -35,9 +35,10 @@ class McpCalls
      * Call the ability as admin 1 through a named client; the id of the call's activity
      *
      * @param array<string, mixed> $arguments
+     * @param array<string, mixed> $returns What the ability returns
      * @return int
      */
-    public function call(array $arguments): int
+    public function call(array $arguments, array $returns = ['token' => 'plain-token']): int
     {
         $objectManager = Bootstrap::getObjectManager();
         $ability = self::service(AbilityInterfaceFactory::class)->create([
@@ -49,7 +50,7 @@ class McpCalls
             'access' => AbilityAccess::Read,
             'aclResources' => ['Magento_Sales::sales'],
         ]);
-        $source = new FakeAbilitySource('test', [$ability], true, static fn (): array => ['token' => 'plain-token']);
+        $source = new FakeAbilitySource('test', [$ability], true, static fn (): array => $returns);
         $catalog = $objectManager->create(AbilityCatalog::class, ['sources' => ['test' => $source]]);
         $invoker = $objectManager->create(AbilityInvoker::class, ['catalog' => $catalog, 'sourceResolver' => $catalog]);
         Assert::assertInstanceOf(AbilityInvoker::class, $invoker);

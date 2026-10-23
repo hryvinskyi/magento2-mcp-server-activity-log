@@ -13,7 +13,8 @@ how the call ended and why, and what the ability changed.
   0.9". Everything the ability does while the call runs (the entity changes another channel records, for example)
   shares the call's correlation id and the same actor, so **Show related** lists the call with its changes.
 - Keeps the call's detail beside the activity: client, version, transport, the ability's source, access and required
-  ACL, why it was refused, and the arguments and the result. Secrets are masked by the activity log's sanitizer
+  ACL, why it was refused, and the arguments and the result. The result is the one the client received, so the
+  personal data the MCP server hides stays hidden here too. Secrets are masked by the activity log's sanitizer
   before anything is stored, and each value is cut to 256 KB. A call waiting for confirmation keeps no message: it
   would carry the one-time confirmation token.
 - On the search page, a refused call of an ability that writes reads "tried to change", of one that deletes "tried to

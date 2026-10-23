@@ -11,6 +11,9 @@ namespace Hryvinskyi\McpServerActivityLog\Test\Integration\Controller;
 
 use Hryvinskyi\ActivityLog\Api\SanitizerInterface;
 use Hryvinskyi\ActivityLog\Model\Config as ActivityLogConfig;
+use Hryvinskyi\McpServer\Api\PersonalDataPolicyInterface;
+use Hryvinskyi\McpServer\Api\SectionSwitchesInterface;
+use Hryvinskyi\McpServer\Test\Integration\Fixture\ForgetsStoredNames;
 use Hryvinskyi\McpServerActivityLog\Test\Integration\Fixture\McpCalls;
 use Magento\Framework\App\Config\MutableScopeConfigInterface;
 use Magento\Framework\Escaper;
@@ -27,6 +30,8 @@ use Magento\TestFramework\TestCase\AbstractBackendController;
 #[DbIsolation(true)]
 class McpPagesTest extends AbstractBackendController
 {
+    use ForgetsStoredNames;
+
     /**
      * @var string
      */
@@ -60,6 +65,30 @@ class McpPagesTest extends AbstractBackendController
         self::assertStringContainsString($this->escaped(SanitizerInterface::MASK), $body);
         self::assertStringNotContainsString('plain-key', $body);
         self::assertStringNotContainsString('plain-token', $body);
+    }
+
+    public function testTheCallKeepsItsResultAsTheClientGotItWithPersonalDataHidden(): void
+    {
+        $id = (new McpCalls())->call([], ['customer_email' => 'ann@example.com', 'status' => 'pending']);
+
+        $this->dispatch('backend/activitylog/activity/view/id/' . $id);
+        $body = $this->body();
+
+        self::assertStringContainsString($this->escaped(PersonalDataPolicyInterface::HIDDEN), $body);
+        self::assertStringContainsString('pending', $body);
+        self::assertStringNotContainsString('ann@example.com', $body);
+    }
+
+    public function testACallOfASectionSwitchedOffSaysWhy(): void
+    {
+        $switches = Bootstrap::getObjectManager()->get(SectionSwitchesInterface::class);
+        self::assertInstanceOf(SectionSwitchesInterface::class, $switches);
+        $switches->switchOff('Magento_Sales::sales');
+        $id = (new McpCalls())->call([]);
+
+        $this->dispatch('backend/activitylog/activity/view/id/' . $id);
+
+        self::assertStringContainsString('The ability belongs to a section that is switched off.', $this->body());
     }
 
     public function testTheMcpServerPageNamesTheClientsOfTheLastDay(): void

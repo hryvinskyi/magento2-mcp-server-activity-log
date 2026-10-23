@@ -63,6 +63,7 @@ class McpCallPanel implements ArgumentInterface
             'read_only_mode' => __('Read-only mode is on, and the ability does not only read.'),
             'anonymous_ability' => __('The ability is open to anyone, and Expose Anonymous Abilities is off.'),
             'argument_guard' => __('An argument guard refused the arguments.'),
+            'section_off' => __('The ability belongs to a section that is switched off.'),
             'needs_confirmation' => __('The ability needs a confirmed call; the client was asked to confirm.'),
             default => __('Refused by the rule "%1".', $reason),
         };
