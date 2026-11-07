@@ -6,7 +6,7 @@
  * GitHub: https://github.com/hryvinskyi
  */
 -->
-<!-- The MCP Server page in the Activity Log menu -->
+<!-- Entries of this module in the Activity Log menu -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
@@ -14,7 +14,8 @@
             <arguments>
                 <argument name="items" xsi:type="array">
                     <item name="mcp_activity" xsi:type="array">
-                        <item name="label" xsi:type="string" translate="true">MCP Calls</item>
+                        <item name="label" xsi:type="string" translate="true">MCP calls</item>
+                        <item name="group" xsi:type="string">logs</item>
                         <item name="route" xsi:type="string">hryvinskyi_activitylog/activity/index</item>
                         <item name="route_params" xsi:type="array">
                             <item name="_query" xsi:type="array">
@@ -23,12 +24,26 @@
                         </item>
                         <item name="resource" xsi:type="string">Hryvinskyi_ActivityLog::view</item>
                         <item name="sort_order" xsi:type="number">35</item>
+                        <item name="icon" xsi:type="string"><![CDATA[<svg aria-hidden="true" focusable="false" class="menu-item-icon lucide lucide-arrow-left-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>]]></item>
                     </item>
                     <item name="mcp_server" xsi:type="array">
                         <item name="label" xsi:type="string" translate="true">MCP Server</item>
+                        <item name="group" xsi:type="string">pages</item>
                         <item name="route" xsi:type="string">hryvinskyi_mcp/server/index</item>
                         <item name="resource" xsi:type="string">Hryvinskyi_McpServer::view</item>
                         <item name="sort_order" xsi:type="number">40</item>
+                        <item name="icon" xsi:type="string"><![CDATA[<svg aria-hidden="true" focusable="false" class="menu-item-icon lucide lucide-server" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>]]></item>
+                    </item>
+                    <item name="mcp_activity_settings" xsi:type="array">
+                        <item name="label" xsi:type="string" translate="true">MCP call logging</item>
+                        <item name="group" xsi:type="string">settings</item>
+                        <item name="route" xsi:type="string">adminhtml/system_config/edit</item>
+                        <item name="route_params" xsi:type="array">
+                            <item name="section" xsi:type="string">hryvinskyi_mcp_server</item>
+                        </item>
+                        <item name="resource" xsi:type="string">Hryvinskyi_McpServer::config</item>
+                        <item name="sort_order" xsi:type="number">130</item>
+                        <item name="icon" xsi:type="string"><![CDATA[<svg aria-hidden="true" focusable="false" class="menu-item-icon lucide lucide-settings" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>]]></item>
                     </item>
                 </argument>
             </arguments>

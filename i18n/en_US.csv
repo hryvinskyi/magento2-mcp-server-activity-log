@@ -34,5 +34,6 @@
 "Every ability call is recorded in the activity log, in the MCP channel, with the client, the masked arguments and result, and the changes the ability made.","Every ability call is recorded in the activity log, in the MCP channel, with the client, the masked arguments and result, and the changes the ability made."
 "Keep MCP Calls (days)","Keep MCP Calls (days)"
 "0 keeps them for good.","0 keeps them for good."
-"MCP Calls","MCP Calls"
+"MCP calls","MCP calls"
 "MCP Server","MCP Server"
+"MCP call logging","MCP call logging"

@@ -21,13 +21,14 @@ how the call ended and why, and what the ability changed.
   delete"; any other call "performed" its ability. The ability links to the MCP Server page.
 - Shows the call on its activity's page (for an admin with **View the MCP Server page**), two dashboard widgets
   (**Top abilities** and **Denied MCP calls**), and the clients of the last 24 hours on the MCP Server page.
-- Adds **MCP Calls** and **MCP Server** to the Activity Log menu, and **MCP activity** to the MCP Server menu.
+- Adds **MCP calls** (under Logs), **MCP Server** (under Pages) and **MCP call logging** (under Settings, for an admin
+  who may change the MCP Server settings) to the Activity Log menu, and **MCP activity** to the MCP Server menu.
 
 ## Requirements
 
 - PHP 8.1 or later, Magento 2.4
-- [`hryvinskyi/magento2-activity-log`](https://github.com/hryvinskyi/magento2-activity-log) ^1.2
-- [`hryvinskyi/magento2-mcp-server`](https://github.com/hryvinskyi/magento2-mcp-server) ^1.2
+- [`hryvinskyi/magento2-activity-log`](https://github.com/hryvinskyi/magento2-activity-log) ^1.3
+- [`hryvinskyi/magento2-mcp-server`](https://github.com/hryvinskyi/magento2-mcp-server) ^1.3
 
 ## Installation
 
